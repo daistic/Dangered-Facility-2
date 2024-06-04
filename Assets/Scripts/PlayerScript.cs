@@ -18,11 +18,11 @@ public class PlayerScript : MonoBehaviour
     {
         //player movement control
         Vector3 moveForward = transform.right * Input.GetAxis("Vertical");
-        Vector3 moveSideways = -(transform.right) * Input.GetAxis("Horizontal");
+        Vector3 moveSideways = -(transform.up) * Input.GetAxis("Horizontal");
         rb.velocity = (moveForward + moveSideways) * moveSpeed;
 
         //player view control
-        float rotateSideways = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        float rotateSideways = -(Input.GetAxisRaw("Mouse X")) * mouseSensitivity;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, rotateSideways));
 
         float rotateVertical = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
