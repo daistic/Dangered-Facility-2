@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject bulletImpact;
     public int ammo = 100;
     public float shotDelay = 5f;
-    private float countdown = 5f;
+    private float nextShot = 0f;
 
     void Start()
     {
@@ -29,18 +29,14 @@ public class PlayerScript : MonoBehaviour
         rb.velocity = (moveForward + moveSideways) * moveSpeed;
 
         //player view control
-        float rotateSideways = -(Input.GetAxisRaw("Mouse X")) * mouseSensitivity;
+        float rotateSideways = -(Input.GetAxisRaw("Mouse X")) * mouseSensitivity * Time.deltaTime;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, rotateSideways));
 
-        float rotateVertical = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        float rotateVertical = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
         viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0, rotateVertical, 0));
 
         //player shoot
-        if (countdown < shotDelay)
-        {
-            countdown += Time.deltaTime;
-        }
-        else
+        if (Time.time > nextShot)
         {
             if (Input.GetMouseButtonDown(0) && ammo > 0)
             {
@@ -51,7 +47,7 @@ public class PlayerScript : MonoBehaviour
                     Instantiate(bulletImpact, hit.point, transform.rotation);
                 }
 
-                countdown = 0;
+                nextShot = Time.time + shotDelay;
             }
         }
     }

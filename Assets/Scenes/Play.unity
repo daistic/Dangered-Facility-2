@@ -322,9 +322,10 @@ MonoBehaviour:
   rb: {fileID: 805166178}
   moveSpeed: 10
   viewCam: {fileID: 519420031}
-  mouseSensitivity: 5
+  mouseSensitivity: 900
   bulletImpact: {fileID: 1824864849874228276, guid: 357aaa659467bb54a87fd98eaa65bce4, type: 3}
   ammo: 100
+  shotDelay: 0.75
 --- !u!54 &805166178
 Rigidbody:
   m_ObjectHideFlags: 0
